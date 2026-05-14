@@ -2,6 +2,17 @@
 
 Flow cytometry analysis notebooks in R (Bioconductor) and Python.
 
+## Lab server (jupyter.cgenomicslab.org)
+
+If you're on the lab JupyterHub, the repo is already cloned at `~/Projects/flow`. To pull updates:
+
+```bash
+cd ~/Projects/flow
+git pull
+```
+
+---
+
 ## Notebooks
 
 | # | Notebook | Kernel | Description |
@@ -27,11 +38,9 @@ data/
 
 ---
 
-## Setup
+## Local setup
 
-### Server (Linux x86_64)
-
-Everything installs cleanly from conda-forge + bioconda:
+### Linux (x86_64)
 
 ```bash
 conda create -n flow -c conda-forge -c bioconda \
@@ -66,21 +75,9 @@ pip install flowkit fcsparser leidenalg
 R -e 'IRkernel::installspec(name = "flow_r", displayname = "R (flow)", user = FALSE)'
 ```
 
-Verify:
+### macOS / Apple Silicon
 
-```bash
-jupyter kernelspec list          # should show flow_r and python3
-R -e 'library(flowCore); cat("flowCore OK\n")'
-R -e 'library(FlowSOM); cat("FlowSOM OK\n")'
-python -c "import flowkit; print('flowkit OK')"
-```
-
----
-
-### Local machine (macOS / Linux)
-
-On Apple Silicon Macs, Bioconductor conda binaries are often missing for
-`osx-arm64`. Install R + Python via conda, then Bioconductor from R:
+Bioconductor conda binaries are often missing for `osx-arm64`. Install the base environment via conda, then Bioconductor from R:
 
 ```bash
 conda create -n flow -c conda-forge \
@@ -120,14 +117,11 @@ conda activate flow
 # Then run the BiocManager::install block above in R
 ```
 
----
+### Apple Silicon troubleshooting
 
-### Apple Silicon (M1/M2/M3) troubleshooting
+`flowWorkspace` and `RProtoBufLib` need protobuf and HDF5 headers to compile.
 
-`flowWorkspace` and `RProtoBufLib` are the usual culprits — they need
-protobuf and HDF5 headers to compile.
-
-**Step 1 — compilers and libraries:**
+**Compilers and libraries:**
 ```bash
 xcode-select --install
 conda install -n flow -c conda-forge \
@@ -135,7 +129,7 @@ conda install -n flow -c conda-forge \
     protobuf hdf5
 ```
 
-**Step 2 — point R at conda's libraries:**
+**Point R at conda's libraries:**
 ```bash
 conda activate flow
 export PKG_CONFIG_PATH="$CONDA_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH"
@@ -144,7 +138,7 @@ export CPPFLAGS="-I$CONDA_PREFIX/include"
 R -e 'BiocManager::install("flowWorkspace")'
 ```
 
-**Step 3 — if nothing works, Rosetta x86 fallback:**
+**If nothing works — Rosetta x86 fallback:**
 ```bash
 CONDA_SUBDIR=osx-64 conda create -n flow_x86 -c conda-forge -c bioconda \
     r-base=4.4 r-irkernel jupyter \
@@ -154,4 +148,13 @@ CONDA_SUBDIR=osx-64 conda create -n flow_x86 -c conda-forge -c bioconda \
     -y
 conda activate flow_x86
 conda config --env --set subdir osx-64
+```
+
+### Verify
+
+```bash
+jupyter kernelspec list          # should show flow_r and python3
+R -e 'library(flowCore); cat("flowCore OK\n")'
+R -e 'library(FlowSOM); cat("FlowSOM OK\n")'
+python -c "import flowkit; print('flowkit OK')"
 ```
