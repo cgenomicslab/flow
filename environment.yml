@@ -22,7 +22,6 @@ dependencies:
   # - bioconductor-ggcyto
   # - bioconductor-opencyto
   # - bioconductor-flowsom
-  # - bioconductor-catalyst
   # Python
   - python=3.11
   - jupyter
