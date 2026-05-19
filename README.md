@@ -53,12 +53,26 @@ BiocManager::install(c(
 ))
 ```
 
-On **Windows** and **Intel macOS**, pre-built binaries are downloaded automatically — no compilation needed. On **Apple Silicon (M1/M2/M3) macOS**, one package needs a manual fix; see below.
+On **Windows** and **Intel macOS**, pre-built binaries are downloaded automatically — no compilation needed. On **Apple Silicon (M1/M2/M3) macOS**, the native path is untested; Bioconductor should ship osx-arm64 binaries for CRAN R, but if `BiocManager` falls back to building `RProtoBufLib` from source you'll hit an `arm64-apple-darwin` autoconf error. See the [Apple Silicon notes](#apple-silicon-notes--rprotobuflib-build-fix) under the conda section for the fix.
+
+### Reproducible setup (conda / mamba)
+
+For a pinned environment matching the lab server, use the conda files in this repo:
+
+```bash
+# Linux (server) — installs everything including Bioconductor packages from bioconda
+mamba env create -f environment_server.yml
+
+# macOS / Windows — installs R, CRAN, and Python deps only
+mamba env create -f environment.yml
+```
+
+On osx-arm64, Bioconductor packages aren't available from bioconda — install them via `BiocManager` from inside the env's R, using the same `BiocManager::install(...)` call above. This is the path that needs the fix below.
 
 <details>
-<summary><b>Apple Silicon notes — RProtoBufLib build fix</b></summary>
+<summary><b id="apple-silicon-notes--rprotobuflib-build-fix">Apple Silicon notes — RProtoBufLib build fix</b></summary>
 
-`RProtoBufLib` (a dependency of `flowWorkspace` / `cytolib`) bundles protobuf 3.8.0, whose autoconf doesn't recognise `arm64-apple-darwin`. The build fails with `Invalid configuration ... unrecognized machine`. To fix:
+When `BiocManager` runs inside a conda env on osx-arm64, it builds `RProtoBufLib` (a dependency of `flowWorkspace` / `cytolib`) from source. The bundled protobuf 3.8.0 ships an autoconf that doesn't recognise `arm64-apple-darwin`, and the build fails with `Invalid configuration ... unrecognized machine`. To fix:
 
 1. Download the package source and unpack it:
    ```r
@@ -79,24 +93,11 @@ On **Windows** and **Intel macOS**, pre-built binaries are downloaded automatica
    ```bash
    R CMD INSTALL RProtoBufLib
    ```
-4. Then continue with the rest in R: `BiocManager::install(c("cytolib", "flowCore", "flowWorkspace", "ggcyto", "openCyto", "FlowSOM"))`.
+4. Then continue in R: `BiocManager::install(c("cytolib", "flowCore", "flowWorkspace", "ggcyto", "openCyto", "FlowSOM"))`.
 
 Do **not** install `libprotobuf` from conda-forge alongside this — the conda build (≥3.21) requires C++17 and breaks `RProtoBufLib`'s C++11 link step.
 
 </details>
-
-### Reproducible setup (conda / mamba)
-
-For a pinned environment matching the lab server, use the conda files in this repo:
-
-```bash
-# Linux (server) — installs everything including Bioconductor packages from bioconda
-mamba env create -f environment_server.yml
-
-# macOS / Windows — installs R, CRAN, and Python deps; Bioconductor packages
-# need BiocManager (see above) since they're not on bioconda for osx-arm64
-mamba env create -f environment.yml
-```
 
 ### For notebook 4 (Python) only
 
