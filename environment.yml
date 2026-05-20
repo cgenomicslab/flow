@@ -16,6 +16,7 @@ dependencies:
   - r-patchwork
   - r-uwot
   - r-rtsne
+  - r-remotes   # for installing GitHub-only batch-correction pkgs (notebook 4)
   # Bioconductor (available on Linux/x86; may need R install on osx-arm64)
   # - bioconductor-flowcore
   # - bioconductor-flowworkspace

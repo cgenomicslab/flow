@@ -1,0 +1,5 @@
+.DS_Store
+notebooks/Rplots.pdf
+notebooks/.ipynb_checkpoints/
+.Rhistory
+.RData

@@ -22,6 +22,9 @@ dependencies:
   - bioconductor-ggcyto
   - bioconductor-opencyto
   - bioconductor-flowsom
+  - bioconductor-sva               # ComBat backend for cyCombine (notebook 4)
+  - bioconductor-complexheatmap    # PeacoQC dependency (notebook 4)
+  - r-remotes                      # for installing GitHub-only batch-correction pkgs
   # Python
   - python=3.11
   - jupyter
