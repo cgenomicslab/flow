@@ -11,7 +11,7 @@ R-based analysis notebooks for flow cytometry data — from raw .fcs files to ga
 | 1 | [`01_csv_matrix_analysis.ipynb`](notebooks/01_csv_matrix_analysis.ipynb) | Analyze data exported as CSV/matrix (e.g. from FlowJo, FACS Diva) |
 | 2 | [`02_single_fcs_analysis.ipynb`](notebooks/02_single_fcs_analysis.ipynb) | Full pipeline for a single .fcs file: compensate → gate → cluster → UMAP |
 | 3 | [`03_batch_fcs_analysis.ipynb`](notebooks/03_batch_fcs_analysis.ipynb) | Same pipeline across multiple .fcs files with cross-sample comparison |
-| 4 | [`04_batch_correction.ipynb`](notebooks/04_batch_correction.ipynb) | QC + batch-effect correction with PeacoQC, cyCombine, and CytoNorm |
+| 4 | [`04_batch_correction.ipynb`](notebooks/04_batch_correction.ipynb) | QC + batch-effect correction with PeacoQC, cyCombine, and CytoNorm. Auto-downloads a 6-file CyTOF demo if `data/batch/` is empty. |
 | 5 | [`05_flow_analysis_python.ipynb`](notebooks/05_flow_analysis_python.ipynb) | Python alternative using flowkit/fcsparser |
 
 All notebooks are templates — adjust file paths, gate thresholds, and channel names to match your data.
