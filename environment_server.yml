@@ -5,39 +5,44 @@ channels:
   - defaults
 dependencies:
   # R
-  - r-base=4.4
-  - r-irkernel
-  - r-ggplot2
-  - r-dplyr
-  - r-tidyr
-  - r-readr
-  - r-pheatmap
-  - r-viridis
-  - r-patchwork
-  - r-uwot
-  - r-rtsne
+  - r-base=4.4.3
+  - r-irkernel=1.3.2
+  - r-ggplot2=4.0.3
+  - r-hexbin=1.28.5
+  - r-dplyr=1.2.1
+  - r-tidyr=1.3.2
+  - r-readr=2.2.0
+  - r-stringr=1.6.0
+  - r-pheatmap=1.0.13
+  - r-viridis=0.6.5
+  - r-patchwork=1.3.2
+  - r-uwot=0.2.4
+  - r-rtsne=0.17
+  - r-remotes               # installs CytoNorm and cyCombine (see README)
+  - r-emdist                # needed by CytoNorm
+  - c-compiler              # the GitHub packages compile from source
+  - cxx-compiler
+  - fortran-compiler
   # Bioconductor
-  - bioconductor-flowcore
-  - bioconductor-flowworkspace
-  - bioconductor-ggcyto
-  - bioconductor-opencyto
-  - bioconductor-flowsom
-  - bioconductor-sva               # ComBat backend for cyCombine (notebook 4)
-  - bioconductor-complexheatmap    # PeacoQC dependency (notebook 4)
-  - r-remotes                      # for installing GitHub-only batch-correction pkgs
+  - bioconductor-flowcore=2.18.0
+  - bioconductor-flowworkspace=4.18.0
+  - bioconductor-opencyto=2.18.0
+  - bioconductor-flowsom=2.14.0
+  - bioconductor-peacoqc=1.16.0
+  - bioconductor-sva=3.54.0            # ComBat backend for cyCombine
+  - bioconductor-complexheatmap=2.22.0 # cyCombine and PeacoQC dependency
   # Python
   - python=3.11
   - jupyter
-  - jupyterlab
-  - numpy
-  - pandas
-  - matplotlib
-  - seaborn
-  - scikit-learn
-  - umap-learn
+  - jupyterlab=4.5.7
+  - numpy=2.4.3
+  - pandas=2.3.3
+  - matplotlib=3.10.9
+  - seaborn=0.13.2
+  - scikit-learn=1.8.0
+  - umap-learn=0.5.12
   # pip-only packages
   - pip
   - pip:
-      - flowkit
-      - fcsparser
-      - leidenalg
+      - flowkit==1.3.2
+      - fcsparser==0.2.4

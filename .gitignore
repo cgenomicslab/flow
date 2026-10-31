@@ -3,6 +3,9 @@ notebooks/Rplots.pdf
 notebooks/.ipynb_checkpoints/
 .Rhistory
 .RData
+# Your own data for notebooks 3 and 4
+data/batch/*
+!data/batch/.gitkeep
 # Auto-downloaded demo data (notebook 4)
 data/batch_cytof/
 data/results/
