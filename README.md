@@ -22,7 +22,7 @@ All notebooks are templates — adjust file paths, gate thresholds, and channel 
 - `sample.fcs` is a single tube with three markers and no viability dye. Clustering and UMAP add little on so few parameters.
 - `matrix_data.csv` has no FSC-H or FSC-W and no spillover matrix, so notebook 1 can't remove doublets or compensate.
 - Notebook 3 runs on `sample.fcs` alone until you add files, so its cross-sample plots mean nothing as saved.
-- Notebook 4's saved outputs are from CyTOF data. Its fluorescence path hasn't been run yet.
+- Notebook 4's saved outputs are from CyTOF data. Its fluorescence path has only been tested on `sample.fcs` split into fake batches.
 
 ---
 
@@ -157,7 +157,7 @@ python -m ipykernel install --user --name flow_py --display-name "flow"
 
 ## Lab server (temporary)
 
-The lab JupyterHub at [jupyter.cgenomicslab.org](https://jupyter.cgenomicslab.org) has the packages for notebooks 1, 2, 3 and 5. Notebook 4 also needs PeacoQC, CytoNorm and cyCombine, which aren't in the shared environment yet. The notebooks are at `~/Projects/flow`. Pull updates with:
+The lab JupyterHub at [jupyter.cgenomicslab.org](https://jupyter.cgenomicslab.org) has everything pre-installed. The notebooks are at `~/Projects/flow`. Pull updates with:
 
 ```bash
 cd ~/Projects/flow && git pull
